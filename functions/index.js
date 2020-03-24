@@ -33,9 +33,9 @@ exports.sendMessageNotification = functions.firestore
           return console.log("Room does not exist!");
         }
 
-        const receiverUid = Object.values(doc.data().users).find(
-          userId => userId !== message.senderId
-        );
+        const receiverUid = Object.values(doc.data().users)
+          .find(userId => userId !== message.senderId);
+
         console.log("Sending message to user", receiverUid);
         return admin
           .firestore()
@@ -52,9 +52,10 @@ exports.sendMessageNotification = functions.firestore
           }
         };
 
-        return admin.messaging().sendToDevice(token, payload);
+        return admin
+          .messaging()
+          .sendToDevice(token, payload);
       })
-      .catch(err => {
-        return console.log("Error getting document", err);
-      });
+      .catch(err => console.log("Error getting document", err)
+    );
   });
